@@ -94,7 +94,8 @@ function add_personajes_C137($content){
 
 // Función que se encarga de recuperar los datos de la API externa
 function get_data_api(){
-	$url = 'https://rickandmortyapi.com/api/character/38,45,71,82,83,92,112,114,116,117,120,127,155,169,175,179,186,201,216,239,271,302,303,335,343,356,394';
+    $id=45;
+	$url = "https://rickandmortyapi.com/api/character/38,{$id},71,82,83,92,112,114,116,117,120,127,155,169,175,179,186,201,216,239,271,302,303,335,343,356,394";
 	$response = wp_remote_get($url);
 
 
@@ -265,3 +266,61 @@ function get_episodes_api(){
 
 	return $html;
 }
+
+
+/*Listar todos los mortys <existentes></existentes>*/
+
+// add_filter('the_content', 'add_mortys');
+
+// function add_mortys($content){
+
+// 	if ( ! is_page('MortyWorld') ) return $content;
+
+// 	$html = get_Mortys();
+// 	return $content.$html;
+// }
+
+// // Función que se encarga de recuperar los datos de la API externa
+// function get_Mortys(){
+// 	$url = 'https://rickandmortyapi.com/api/character/?page=1&name=morty';
+//     $url = 'https://rickandmortyapi.com/api/character/?page=2&name=morty';
+//     $url = 'https://rickandmortyapi.com/api/character/?page=3&name=morty';
+//     $url = 'https://rickandmortyapi.com/api/character/?page=4&name=morty';
+
+// 	$response = wp_remote_get($url);
+
+
+//     //Si falla retorna un error
+// 	if (is_wp_error($response)) {
+// 		error_log("Error: ". $response->get_error_message());
+// 		return false;
+// 	}
+
+// 	$body = wp_remote_retrieve_body($response);
+
+// 	$data = json_decode($body);
+
+// 	$template = '<div class="coleccion">
+// 					{data}
+// 				</div>';
+
+// 	 if ( $data ){
+// 	 	$str = '';
+//          $cantidad=count($data);
+// 		foreach ($data as $C_137) {
+// 			$str .= '<div class="ReusableCard">';
+// 			$str .= "<img src='{$C_137->image}'>";
+// 			$str .= "<p class='Cardname'>{$C_137->name}</p>";
+//             $str .= "<p class='Speciename'>Especie: {$C_137->species}</p>";
+//             $str .= "<p class='Cardname'>{$cantidad}</p>";
+// 			$str .= "</div>";
+            
+            
+// 		}
+// 	 }
+// // $str .= "<td>{$C_137->rating->average}</td>";
+
+// 	$html = str_replace('{data}', $str, $template);
+
+// 	return $html;
+// }
