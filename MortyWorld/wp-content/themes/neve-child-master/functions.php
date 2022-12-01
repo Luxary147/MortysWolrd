@@ -142,12 +142,12 @@ function add_lista_episodios($content){
 
 	if ( ! is_page('MortyWorld') ) return $content;
 
-	$html = get_data_api();
+	$html = get_episodes_api();
 	return $content.$html;
 }
 
 // Función que se encarga de recuperar los datos de la API externa
-function get_data_api(){
+function get_episodes_api(){
 
 	$url = 'https://rickandmortyapi.com/api/episode/1,2,3,4,5,6,7,8,9,10,11';
     $url2 = 'https://rickandmortyapi.com/api/episode/12,13,14,15,16,17,18,19,20,21';
@@ -162,7 +162,7 @@ function get_data_api(){
     $response5= wp_remote_get($url5);
 
     //Si falla retorna un error
-	if (is_wp_error($response)) or (is_wp_error($response2)) or (is_wp_error($response3)) or (is_wp_error($response4)) or (is_wp_error($response5)){
+	if (is_wp_error($response) || is_wp_error($response2) || is_wp_error($response3) || is_wp_error($response4)||is_wp_error($response5)){
 		error_log("Error: ". $response->get_error_message());
 		return false;
 	}
