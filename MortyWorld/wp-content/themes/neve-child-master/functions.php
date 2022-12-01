@@ -82,9 +82,9 @@ add_filter( 'neve_react_controls_localization', 'add_custom_fonts' );
 
 
 
-add_filter('the_content', 'add_custom_content');
+add_filter('the_content', 'add_personajes_C137');
 
-function add_custom_content($content){
+function add_personajes_C137($content){
 
 	if ( ! is_page('MortyWorld') ) return $content;
 
@@ -112,7 +112,6 @@ function get_data_api(){
 					{data}
 				</div>';
 
-    $html = $body;
 	 if ( $data ){
 	 	$str = '';
          $cantidad=count($data);
@@ -134,3 +133,135 @@ function get_data_api(){
 	return $html;
 }
 
+
+/*Cracioón de un listado de todos los <episodios></episodios>*/
+
+add_filter('the_content', 'add_lista_episodios');
+
+function add_lista_episodios($content){
+
+	if ( ! is_page('MortyWorld') ) return $content;
+
+	$html = get_data_api();
+	return $content.$html;
+}
+
+// Función que se encarga de recuperar los datos de la API externa
+function get_data_api(){
+
+	$url = 'https://rickandmortyapi.com/api/episode/1,2,3,4,5,6,7,8,9,10,11';
+    $url2 = 'https://rickandmortyapi.com/api/episode/12,13,14,15,16,17,18,19,20,21';
+    $url3 = 'https://rickandmortyapi.com/api/episode/22,23,24,25,26,27,28,29,30,31';
+    $url4 = 'https://rickandmortyapi.com/api/episode/32,33,34,35,36,37,38,39,40,41';
+    $url5 = 'https://rickandmortyapi.com/api/episode/42,43,44,45,46,47,48,49,50,51,52';
+
+	$response = wp_remote_get($url);
+    $response2 = wp_remote_get($url2);
+    $response3 = wp_remote_get($url3);
+    $response4 = wp_remote_get($url4);
+    $response5= wp_remote_get($url5);
+
+    //Si falla retorna un error
+	if (is_wp_error($response)) or (is_wp_error($response2)) or (is_wp_error($response3)) or (is_wp_error($response4)) or (is_wp_error($response5)){
+		error_log("Error: ". $response->get_error_message());
+		return false;
+	}
+
+
+
+	$T1String = wp_remote_retrieve_body($response);
+    $T2String = wp_remote_retrieve_body($response2);
+    $T3String = wp_remote_retrieve_body($response3);
+    $T4String = wp_remote_retrieve_body($response4);
+    $T5String = wp_remote_retrieve_body($response5);
+
+
+	$T1Json = json_decode($T1String);
+    $T2Json = json_decode($T2String);
+    $T3Json = json_decode($T3String);
+    $T4Json = json_decode($T4String);
+    $T5Json = json_decode($T5String);
+
+	$template = '<div class="Episodio">
+					{data}
+				</div>';
+
+
+	 if ( $T1String ){
+	 	$str = '';
+		foreach ($data as $episode) {
+			$str .= '<div class="Temporada">';
+            $str .= '<h2> Primera Temporada </h2>';
+			$str .= "<p class='id'>{$episode->id}</p>";
+            $str .= "<p class='name'>{$episode->name}</p>";
+            $str .= "<p class='salida'>{$episode->air_date}</p>";
+            /* A lo mejor agrgo algo mas aqui
+            $str .= "<p class='id'>{$episode->id}</p>";
+            */
+			$str .= "</div>";
+            
+		}
+	 }
+     
+     if ( $T2String ){
+       foreach ($data as $episode) {
+           $str .= '<div class="Temporada">';
+           $str .= '<h2> Segunda Temporada </h2>';
+           $str .= "<p class='id'>{$episode->id}</p>";
+           $str .= "<p class='name'>{$episode->name}</p>";
+           $str .= "<p class='salida'>{$episode->air_date}</p>";
+           /* A lo mejor agrgo algo mas aqui
+           $str .= "<p class='id'>{$episode->id}</p>";
+           */
+           $str .= "</div>";
+           
+       }
+    }
+    if ( $T3String ){
+       foreach ($data as $episode) {
+           $str .= '<div class="Temporada">';
+           $str .= '<h2> Tercera Temporada </h2>';
+           $str .= "<p class='id'>{$episode->id}</p>";
+           $str .= "<p class='name'>{$episode->name}</p>";
+           $str .= "<p class='salida'>{$episode->air_date}</p>";
+           /* A lo mejor agrgo algo mas aqui
+           $str .= "<p class='id'>{$episode->id}</p>";
+           */
+           $str .= "</div>";
+           
+       }
+    }
+    if ( $T4String ){
+       foreach ($data as $episode) {
+           $str .= '<div class="Temporada">';
+           $str .= '<h2> Cuarta Temporada </h2>';
+           $str .= "<p class='id'>{$episode->id}</p>";
+           $str .= "<p class='name'>{$episode->name}</p>";
+           $str .= "<p class='salida'>{$episode->air_date}</p>";
+           /* A lo mejor agrgo algo mas aqui
+           $str .= "<p class='id'>{$episode->id}</p>";
+           */
+           $str .= "</div>";
+           
+       }
+    }
+    if ( $T5String ){
+       foreach ($data as $episode) {
+           $str .= '<div class="Temporada">';
+           $str .= '<h2> Quinta Temporada </h2>';
+           $str .= "<p class='id'>{$episode->id}</p>";
+           $str .= "<p class='name'>{$episode->name}</p>";
+           $str .= "<p class='salida'>{$episode->air_date}</p>";
+           /* A lo mejor agrgo algo mas aqui
+           $str .= "<p class='id'>{$episode->id}</p>";
+           */
+           $str .= "</div>";
+           
+       }
+    }
+
+
+	$html = str_replace('{data}', $str, $template);
+
+	return $html;
+}
