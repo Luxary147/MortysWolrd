@@ -94,7 +94,7 @@ function add_custom_content($content){
 
 // Función que se encarga de recuperar los datos de la API externa
 function get_data_api(){
-	$url = 'https://rickandmortyapi.com/api/character/1,2,3,4,5,6';
+	$url = 'https://rickandmortyapi.com/api/character/38,45,71,82,83,92,112,114,116,117,120,127,155,169,175,179,186,201,216,239,271,302,303,335,343,356,394';
 	$response = wp_remote_get($url);
 
 
@@ -115,12 +115,16 @@ function get_data_api(){
     $html = $body;
 	 if ( $data ){
 	 	$str = '';
+         $cantidad=count($data);
 		foreach ($data as $C_137) {
-			$str .= '<div class="ReusableCart">';
+			$str .= '<div class="ReusableCard">';
 			$str .= "<img src='{$C_137->image}'>";
-			$str .= "<p class='Cartname'>{$C_137->name}</p>";
-            $str .= "<p class='Speciename'>{$C_137->species}</p>";
+			$str .= "<p class='Cardname'>{$C_137->name}</p>";
+            $str .= "<p class='Speciename'>Especie: {$C_137->species}</p>";
+            $str .= "<p class='Cardname'>{$cantidad}</p>";
 			$str .= "</div>";
+            
+            
 		}
 	 }
 // $str .= "<td>{$C_137->rating->average}</td>";
