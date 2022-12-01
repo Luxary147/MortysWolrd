@@ -140,7 +140,7 @@ add_filter('the_content', 'add_lista_episodios');
 
 function add_lista_episodios($content){
 
-	if ( ! is_page('MortyWorld') ) return $content;
+	if ( ! is_page('Episodios') ) return $content;
 
 	$html = get_episodes_api();
 	return $content.$html;
