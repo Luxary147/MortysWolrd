@@ -82,7 +82,7 @@ add_filter( 'neve_react_controls_localization', 'add_custom_fonts' );
 
 
 
-add_filter('cartContent', 'add_custom_content');
+add_filter('the_content', 'add_custom_content');
 
 function add_custom_content($content){
 
@@ -113,20 +113,20 @@ function get_data_api(){
 				</div>';
 
     $html = $body;
-	// if ( $data ){
-	// 	$str = '';
-		/*foreach ($data as $Mortys) {
-			$str .= "<tr>";
-			$str .= "<td><img src='{$wine->image}' width='20'/></td>";
-			$str .= "<td>{$wine->winery}</td>";
-			$str .= "<td>{$wine->wine}</td>";
-			$str .= "<td>{$wine->rating->average}</td>";
-			$str .= "<td>{$wine->location}</td>";
-			$str .= "</tr>";
-		}*/
-	// }
+	 if ( $data ){
+	 	$str = '';
+		foreach ($data as $C_137) {
+			$str .= '<div class="ReusableCart">';
+			$str .= "<img src='{$C_137->image}'>";
+			$str .= "<p class='Cartname'>{$C_137->name}</p>";
+            $str .= "<p class='Speciename'>{$C_137->species}</p>";
+			$str .= "</div>";
+		}
+	 }
+// $str .= "<td>{$C_137->rating->average}</td>";
 
-	/*$html = str_replace('{data}', $str, $template);*/
+	$html = str_replace('{data}', $str, $template);
 
 	return $html;
 }
+
