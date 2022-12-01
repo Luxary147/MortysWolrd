@@ -187,11 +187,11 @@ function get_episodes_api(){
 				</div>';
 
 
-	 if ( $T1String ){
+	 if ( $T1Json ){
 	 	$str = '';
-		foreach ($data as $episode) {
+        $str .= '<h2> Primera Temporada </h2>';
+		foreach ( $T1Json as $episode) {
 			$str .= '<div class="Temporada">';
-            $str .= '<h2> Primera Temporada </h2>';
 			$str .= "<p class='id'>{$episode->id}</p>";
             $str .= "<p class='name'>{$episode->name}</p>";
             $str .= "<p class='salida'>{$episode->air_date}</p>";
@@ -203,10 +203,10 @@ function get_episodes_api(){
 		}
 	 }
      
-     if ( $T2String ){
-       foreach ($data as $episode) {
+     if ( $T2Json ){           
+        $str .= '<h2> Segunda Temporada </h2>';
+       foreach ( $T2Json as $episode) {
            $str .= '<div class="Temporada">';
-           $str .= '<h2> Segunda Temporada </h2>';
            $str .= "<p class='id'>{$episode->id}</p>";
            $str .= "<p class='name'>{$episode->name}</p>";
            $str .= "<p class='salida'>{$episode->air_date}</p>";
@@ -217,10 +217,10 @@ function get_episodes_api(){
            
        }
     }
-    if ( $T3String ){
-       foreach ($data as $episode) {
+    if ( $T3Json ){
+        $str .= '<h2> Tercera Temporada </h2>';
+       foreach ( $T3Json as $episode) {
            $str .= '<div class="Temporada">';
-           $str .= '<h2> Tercera Temporada </h2>';
            $str .= "<p class='id'>{$episode->id}</p>";
            $str .= "<p class='name'>{$episode->name}</p>";
            $str .= "<p class='salida'>{$episode->air_date}</p>";
@@ -231,10 +231,10 @@ function get_episodes_api(){
            
        }
     }
-    if ( $T4String ){
-       foreach ($data as $episode) {
+    if ( $T4Json ){
+        $str .= '<h2> Cuarta Temporada </h2>';
+       foreach ($T4Json as $episode) {
            $str .= '<div class="Temporada">';
-           $str .= '<h2> Cuarta Temporada </h2>';
            $str .= "<p class='id'>{$episode->id}</p>";
            $str .= "<p class='name'>{$episode->name}</p>";
            $str .= "<p class='salida'>{$episode->air_date}</p>";
@@ -245,10 +245,10 @@ function get_episodes_api(){
            
        }
     }
-    if ( $T5String ){
-       foreach ($data as $episode) {
+    if ( $T5Json ){           
+        $str .= '<h2> Quinta Temporada </h2>';
+       foreach ( $T5Json as $episode) {
            $str .= '<div class="Temporada">';
-           $str .= '<h2> Quinta Temporada </h2>';
            $str .= "<p class='id'>{$episode->id}</p>";
            $str .= "<p class='name'>{$episode->name}</p>";
            $str .= "<p class='salida'>{$episode->air_date}</p>";
