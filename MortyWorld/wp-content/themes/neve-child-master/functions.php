@@ -77,3 +77,56 @@ function add_custom_fonts( $localized_data ) {
 	return $localized_data;
 }
 add_filter( 'neve_react_controls_localization', 'add_custom_fonts' );
+
+
+
+
+
+add_filter('cartContent', 'add_custom_content');
+
+function add_custom_content($content){
+
+	if ( ! is_page('MortyWorld') ) return $content;
+
+	$html = get_data_api();
+	return $content.$html;
+}
+
+// Función que se encarga de recuperar los datos de la API externa
+function get_data_api(){
+	$url = 'https://api.sampleapis.com/wines/reds';
+	$response = wp_remote_get($url);
+
+
+    //Si falla retorna un error
+	if (is_wp_error($response)) {
+		error_log("Error: ". $response->get_error_message());
+		return false;
+	}
+
+	$body = wp_remote_retrieve_body($response);
+
+	$data = json_decode($body);
+
+	$template = '<div class="coleccion">
+					{data}
+				</div>';
+
+	if ( $data ){
+		$str = '';
+        var_dump($data);
+		/*foreach ($data as $Mortys) {
+			$str .= "<tr>";
+			$str .= "<td><img src='{$wine->image}' width='20'/></td>";
+			$str .= "<td>{$wine->winery}</td>";
+			$str .= "<td>{$wine->wine}</td>";
+			$str .= "<td>{$wine->rating->average}</td>";
+			$str .= "<td>{$wine->location}</td>";
+			$str .= "</tr>";
+		}*/
+	}
+
+	$html = str_replace('{data}', $str, $template);
+
+	return $html;
+}
