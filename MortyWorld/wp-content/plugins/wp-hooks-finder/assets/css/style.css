@@ -1,0 +1,31 @@
+li#wp-admin-bar-wp-hooks-finder a {
+    background-color: #6b037d;
+}
+
+li#wp-admin-bar-wp-hooks-finder a:hover {
+    background-color: #6e0082 !important;
+    color: white !important;
+}
+
+li.menupop.wp-admin-bar-wp-hooks-finder.hover a {
+    background-color: #6b037d !important;
+    color: white !important;
+}
+
+#wphf-action {
+    border: solid 1px;
+    background-color: #d94f4f;
+    margin: 5px;
+    color: white;
+    font-size: 12px;
+    padding: 5px;
+}
+
+#wphf-filter {
+    border: solid 1px;
+    background-color: #007cba;
+    margin: 5px;
+    color: white;
+    padding: 5px;
+    font-size: 12px;
+}

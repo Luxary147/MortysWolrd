@@ -112,7 +112,7 @@ function get_data_api(){
 					{data}
 				</div>';
 
-    $html .= '<div class="coleccion">{$body}</div>';
+    $html = $body;
 	// if ( $data ){
 	// 	$str = '';
 		/*foreach ($data as $Mortys) {
