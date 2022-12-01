@@ -86,7 +86,7 @@ add_filter('the_content', 'add_personajes_C137');
 
 function add_personajes_C137($content){
 
-	if ( ! is_page('MortyWorld') ) return $content;
+	if ( ! is_page('Mortld') ) return $content;
 
 	$html = get_data_api();
 	return $content.$html;
@@ -94,8 +94,7 @@ function add_personajes_C137($content){
 
 // Función que se encarga de recuperar los datos de la API externa
 function get_data_api(){
-    $id=45;
-	$url = "https://rickandmortyapi.com/api/character/38,{$id},71,82,83,92,112,114,116,117,120,127,155,169,175,179,186,201,216,239,271,302,303,335,343,356,394";
+	$url = "https://rickandmortyapi.com/api/character/38,45,71,82,83,92,112,114,116,117,120,127,155,169,175,179,186,201,216,239,271,302,303,335,343,356,394";
 	$response = wp_remote_get($url);
 
 
@@ -270,57 +269,61 @@ function get_episodes_api(){
 
 /*Listar todos los mortys <existentes></existentes>*/
 
-// add_filter('the_content', 'add_mortys');
+add_filter('the_content', 'add_mortys');
 
-// function add_mortys($content){
+function add_mortys($content){
 
-// 	if ( ! is_page('MortyWorld') ) return $content;
+	if ( ! is_page('MortyWorld') ) return $content;
 
-// 	$html = get_Mortys();
-// 	return $content.$html;
-// }
+	$html = get_Mortys();
+	return $content.$html;
+}
 
-// // Función que se encarga de recuperar los datos de la API externa
-// function get_Mortys(){
-// 	$url = 'https://rickandmortyapi.com/api/character/?page=1&name=morty';
-//     $url = 'https://rickandmortyapi.com/api/character/?page=2&name=morty';
-//     $url = 'https://rickandmortyapi.com/api/character/?page=3&name=morty';
-//     $url = 'https://rickandmortyapi.com/api/character/?page=4&name=morty';
+// Función que se encarga de recuperar los datos de la API externa
+function get_Mortys(){
 
-// 	$response = wp_remote_get($url);
+    /*resetear variables*/
+    $id=0;
+    $str = '';
+    $html = '';
 
+    while ($id <= 4) {
+        
+        $urlMortys = "https://rickandmortyapi.com/api/character/?page={$id}&name=morty";
 
-//     //Si falla retorna un error
-// 	if (is_wp_error($response)) {
-// 		error_log("Error: ". $response->get_error_message());
-// 		return false;
-// 	}
+        $responseMorty = wp_remote_get($urlMortys);
 
-// 	$body = wp_remote_retrieve_body($response);
+        //Si falla retorna un error
+        if (is_wp_error($responseMorty)) {
+            error_log("Error: ". $responseMorty->get_error_message());
+            return false;
+        }
 
-// 	$data = json_decode($body);
+	$body = wp_remote_retrieve_body($responseMorty);
 
-// 	$template = '<div class="coleccion">
-// 					{data}
-// 				</div>';
+    $html .= $body;
+	// $data = json_decode($body);
 
-// 	 if ( $data ){
-// 	 	$str = '';
-//          $cantidad=count($data);
-// 		foreach ($data as $C_137) {
-// 			$str .= '<div class="ReusableCard">';
-// 			$str .= "<img src='{$C_137->image}'>";
-// 			$str .= "<p class='Cardname'>{$C_137->name}</p>";
-//             $str .= "<p class='Speciename'>Especie: {$C_137->species}</p>";
-//             $str .= "<p class='Cardname'>{$cantidad}</p>";
-// 			$str .= "</div>";
+	// $template = '<div class="coleccion">
+	// 				{data}
+	// 			</div>';
+
+	//  if ( $data ){
+	// 	foreach ($data as $Morty) {
+	// 		$str .= '<div class="MortyCard">';
+	// 		$str .= "<img src='{$Morty->image}'>";
+	// 		$str .= "<p class='Cardname'>{$Morty->name}</p>";
+    //         $str .= "<p class='Speciename'>Especie: {$Morty->species}</p>";
+    //         $str .= "<p class='Status'>Estado : {$Morty->status}</p>";
+	// 		$str .= "</div>";
             
             
-// 		}
-// 	 }
-// // $str .= "<td>{$C_137->rating->average}</td>";
+	// 	}*/
+	//  }
+    // }
+	// $html = str_replace('{data}', $str, $template);
+    $id=$id +1;
+    }
 
-// 	$html = str_replace('{data}', $str, $template);
-
-// 	return $html;
-// }
+	return $html;
+}
