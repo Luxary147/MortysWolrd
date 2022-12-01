@@ -94,7 +94,7 @@ function add_custom_content($content){
 
 // Función que se encarga de recuperar los datos de la API externa
 function get_data_api(){
-	$url = 'https://api.sampleapis.com/wines/reds';
+	$url = 'https://rickandmortyapi.com/api/character/1,2,3,4,5,6';
 	$response = wp_remote_get($url);
 
 
@@ -112,9 +112,9 @@ function get_data_api(){
 					{data}
 				</div>';
 
-	if ( $data ){
-		$str = '';
-        var_dump($data);
+    $html .= '<div class="coleccion">{$body}</div>';
+	// if ( $data ){
+	// 	$str = '';
 		/*foreach ($data as $Mortys) {
 			$str .= "<tr>";
 			$str .= "<td><img src='{$wine->image}' width='20'/></td>";
@@ -124,9 +124,9 @@ function get_data_api(){
 			$str .= "<td>{$wine->location}</td>";
 			$str .= "</tr>";
 		}*/
-	}
+	// }
 
-	$html = str_replace('{data}', $str, $template);
+	/*$html = str_replace('{data}', $str, $template);*/
 
 	return $html;
 }
