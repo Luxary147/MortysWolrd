@@ -86,7 +86,7 @@ add_filter('the_content', 'add_personajes_C137');
 
 function add_personajes_C137($content){
 
-	if ( ! is_page('Mortld') ) return $content;
+	if ( ! is_page('MortyWld') ) return $content;
 
 	$html = get_data_api();
 	return $content.$html;
@@ -285,7 +285,7 @@ function get_Mortys(){
     /*resetear variables*/
     $id=0;
     $str = '';
-    $html = '';
+    $bloque = '';
 
     while ($id <= 4) {
         
@@ -301,29 +301,37 @@ function get_Mortys(){
 
 	$body = wp_remote_retrieve_body($responseMorty);
 
-    $html .= $body;
-	// $data = json_decode($body);
+    $bloque .= $body;
 
-	// $template = '<div class="coleccion">
-	// 				{data}
-	// 			</div>';
+    var_dump($bloque);
+    // echo "<p>{$bloque}</p>";
 
-	//  if ( $data ){
-	// 	foreach ($data as $Morty) {
-	// 		$str .= '<div class="MortyCard">';
-	// 		$str .= "<img src='{$Morty->image}'>";
-	// 		$str .= "<p class='Cardname'>{$Morty->name}</p>";
-    //         $str .= "<p class='Speciename'>Especie: {$Morty->species}</p>";
-    //         $str .= "<p class='Status'>Estado : {$Morty->status}</p>";
-	// 		$str .= "</div>";
-            
-            
-	// 	}*/
-	//  }
-    // }
-	// $html = str_replace('{data}', $str, $template);
     $id=$id +1;
     }
+
+	$data = json_decode($bloque);
+
+
+    var_dump($data);
+
+
+	$template = '<div class="coleccion">
+					{data}
+				</div>';
+
+	 if ( $data ){
+		foreach ($data as $Morty) {
+			$str .= '<div class="MortyCard">';
+			$str .= "<img src='{$Morty->image}'>";
+			$str .= "<p class='Cardname'>{$Morty->name}</p>";
+            $str .= "<p class='Speciename'>Especie: {$Morty->species}</p>";
+            $str .= "<p class='Status'>Estado : {$Morty->status}</p>";
+			$str .= "</div>";
+            
+		}
+	 }
+    
+	$html = str_replace('{data}', $str, $template);
 
 	return $html;
 }
