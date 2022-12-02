@@ -86,7 +86,7 @@ add_filter('the_content', 'add_personajes_C137');
 
 function add_personajes_C137($content){
 
-	if ( ! is_page('Mortyrld') ) return $content;
+	if ( ! is_page('tienda') ) return $content;
 
 	$html = get_data_api();
 	return $content.$html;
@@ -344,7 +344,9 @@ function add_Mortys($content){
 
 // Función que se encarga de recuperar los datos de la API externa
 function get_morty(){
-	$url = "https://rickandmortyapi.com/api/character/?page=1&name=morty";
+
+	$url = "https://rickandmortyapi.com/api/character/?name=morty";
+    
 	$response = wp_remote_get($url);
 
 
@@ -364,26 +366,28 @@ function get_morty(){
 
 	 if ( $data ){
 	 	$str = '';
-        $controlador=false;
+        $controlador=0;
 
 
-		foreach ($data as $InfoMorty) {
+		foreach ($data as $allMorty) {
 
-            if ($controlador == true){
-                            // print_r( $InfoMorty);
-			$str .= '<div class="MortyCard">';
-			$str .= "<img src='{$InfoMorty->results->$id->image}'>";
-			$str .= "<p class='Cardname'>{$InfoMorty->results->name}</p>";
-            $str .= "<p class='Speciename'>Especie: {$InfoMorty->results->species}</p>";
-            $str .= "<p class='Status'>Estado : {$InfoMorty->results->status}</p>";
-			$str .= "</div>";
-            }else{
-                $controlador=true;
-            }
+            if ($controlador == 1 ){
 
-            
+                foreach($allMorty as $InfoMorty){
+                $str .= '<div class="MortyCard">';
+                $str .= "<img src='{$InfoMorty->image}'>";
+                $str .= "<p class='Cardname'>{$InfoMorty->name}</p>";
+                $str .= "<p class='Speciename'>Especie: {$InfoMorty->species}</p>";
+                $str .= "<p class='Status'>Estado : {$InfoMorty->status}</p>";
+                $str .= "</div>";
+                }
+             }else{
+                 $controlador=1;
+             }
+
+        }
 		}
-	 }
+	 
 
 
 	$html = str_replace('{data}', $str, $template);
