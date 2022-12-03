@@ -270,127 +270,137 @@ function get_episodes_api(){
 
 /*Listar todos los mortys <existentes></existentes>*/
 
-// add_filter('the_content', 'add_mortys');
+add_filter('the_content', 'add_mortys');
 
-// function add_mortys($content){
-
-// 	if ( ! is_page('MortyWorld') ) return $content;
-
-// 	$html = get_Mortys();
-// 	return $content.$html;
-// }
-
-// // Función que se encarga de recuperar los datos de la API externa
-// function get_Mortys(){
-
-//     /*resetear variables*/
-//     $id=1;
-//     $str = '';
-//     $bloque = '';
-
-//     $template = '<div class="coleccion">
-//                     {data}
-//                 </div>';
-
-
-//     while ($id <= 4) {
-//         echo ($id);
-//         $urlMortys = "https://rickandmortyapi.com/api/character/?page={$id}&name=morty";
-
-//         $responseMorty = wp_remote_get($urlMortys);
-
-//         //Si falla retorna un error
-//         if (is_wp_error($responseMorty)) {
-//             error_log("Error: ". $responseMorty->get_error_message());
-//             return false;
-//         }
-
-// 	$body = wp_remote_retrieve_body($responseMorty);
-
-// 	$data = json_decode($body);
-
-//     print_r($data);
-
-// 	 if ( $data ){
-// 		foreach ($data as $InfoMorty) {
-// 			$str .= '<div class="MortyCard">';
-// 			$str .= "<img src='{$InfoMorty->image}'>";
-// 			$str .= "<p class='Cardname'>{$InfoMorty->name}</p>";
-//             $str .= "<p class='Speciename'>Especie: {$InfoMorty->species}</p>";
-//             $str .= "<p class='Status'>Estado : {$InfoMorty->status}</p>";
-// 			$str .= "</div>";
-            
-// 		}
-// 	 }
-
-//     $id=$id +1;
-//     }
-    
-// 	$html = str_replace('{data}', $str, $template);
-
-// 	return $html;
-// }
-
-
-add_filter('the_content', 'add_Mortys');
-
-function add_Mortys($content){
+function add_mortys($content){
 
 	if ( ! is_page('MortyWorld') ) return $content;
 
-	$html = get_morty();
+	$html = get_Mortys();
 	return $content.$html;
 }
 
 // Función que se encarga de recuperar los datos de la API externa
-function get_morty(){
+function get_Mortys(){
 
-	$url = "https://rickandmortyapi.com/api/character/?name=morty";
-    
-	$response = wp_remote_get($url);
+    /*resetear variables*/
+    $id=1;
+    $str = '';
+    $bloque = '';
+
+    $template = '<div class="coleccion">
+                    {data}
+                </div>';
 
 
-    //Si falla retorna un error
-	if (is_wp_error($response)) {
-		error_log("Error: ". $response->get_error_message());
-		return false;
-	}
+    while ($id <= 4) {
+        echo ($id);
+        $urlMortys = "https://rickandmortyapi.com/api/character/?page={$id}&name=morty";
 
-	$body = wp_remote_retrieve_body($response);
+        $responseMorty = wp_remote_get($urlMortys);
+
+        //Si falla retorna un error
+        if (is_wp_error($responseMorty)) {
+            error_log("Error: ". $responseMorty->get_error_message());
+            return false;
+        }
+
+	$body = wp_remote_retrieve_body($responseMorty);
 
 	$data = json_decode($body);
 
-	$template = '<div class="coleccion">
-					{data}
-				</div>';
 
 	 if ( $data ){
-	 	$str = '';
+
         $controlador=0;
 
-
-		foreach ($data as $allMorty) {
-
-            if ($controlador == 1 ){
-
-                foreach($allMorty as $InfoMorty){
-                $str .= '<div class="MortyCard">';
-                $str .= "<img src='{$InfoMorty->image}'>";
-                $str .= "<p class='Cardname'>{$InfoMorty->name}</p>";
-                $str .= "<p class='Speciename'>Especie: {$InfoMorty->species}</p>";
-                $str .= "<p class='Status'>Estado : {$InfoMorty->status}</p>";
-                $str .= "</div>";
+        	foreach ($data as $allMorty) {
+        
+                if ($controlador == 1 ){
+        
+                    foreach($allMorty as $InfoMorty){
+                        $str .= '<div class="MortyCard">';
+                        $str .= "<img src='{$InfoMorty->image}'>";
+                        $str .= "<p class='Cardname'>{$InfoMorty->name}</p>";
+                        $str .= "<p class='Speciename'>Especie: {$InfoMorty->species}</p>";
+                        $str .= "<p class='Status'>Estado : {$InfoMorty->status}</p>";
+                        $str .= "</div>";
+                        }
+                     }else{
+                         $controlador=1;
+                     }
+        
                 }
-             }else{
-                 $controlador=1;
-             }
+	 }
 
-        }
-		}
-	 
-
-
+    $id=$id +1;
+    }
+    
 	$html = str_replace('{data}', $str, $template);
 
 	return $html;
 }
+
+
+// add_filter('the_content', 'add_Mortys');
+
+// function add_Mortys($content){
+
+// 	if ( ! is_page('MortyWorld') ) return $content;
+
+// 	$html = get_morty();
+// 	return $content.$html;
+// }
+
+// Función que se encarga de recuperar los datos de la API externa
+// function get_morty(){
+
+// 	$url = "https://rickandmortyapi.com/api/character/?name=morty";
+    
+// 	$response = wp_remote_get($url);
+
+
+//     Si falla retorna un error
+// 	if (is_wp_error($response)) {
+// 		error_log("Error: ". $response->get_error_message());
+// 		return false;
+// 	}
+
+// 	$body = wp_remote_retrieve_body($response);
+
+// 	$data = json_decode($body);
+
+// 	$template = '<div class="coleccion">
+// 					{data}
+// 				</div>';
+
+// 	 if ( $data ){
+// 	 	$str = '';
+//         $controlador=0;
+
+
+// 		foreach ($data as $allMorty) {
+
+//             if ($controlador == 1 ){
+
+//                 foreach($allMorty as $InfoMorty){
+//                 $str .= '<div class="MortyCard">';
+//                 $str .= "<img src='{$InfoMorty->image}'>";
+//                 $str .= "<p class='Cardname'>{$InfoMorty->name}</p>";
+//                 $str .= "<p class='Speciename'>Especie: {$InfoMorty->species}</p>";
+//                 $str .= "<p class='Status'>Estado : {$InfoMorty->status}</p>";
+//                 $str .= "</div>";
+//                 }
+//              }else{
+//                  $controlador=1;
+//              }
+
+//         }
+// 		}
+	 
+
+
+// 	$html = str_replace('{data}', $str, $template);
+
+// 	return $html;
+// }
