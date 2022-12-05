@@ -288,13 +288,15 @@ function get_Mortys(){
     $str = '';
     $bloque = '';
 
-    $template = '<div class="coleccion">
+    $template = '<div class="wpb_column vc_column_container vc_col-sm-8 vc_col-lg-offset-1 vc_col-lg-10 vc_col-md-offset-1 vc_col-md-10 vc_col-sm-offset-2 vc_col-xs-12">
+                    <div class="coleccion">
                     {data}
+                    </div>
                 </div>';
 
 
     while ($id <= 4) {
-        echo ($id);
+
         $urlMortys = "https://rickandmortyapi.com/api/character/?page={$id}&name=morty";
 
         $responseMorty = wp_remote_get($urlMortys);
@@ -404,3 +406,76 @@ function get_Mortys(){
 
 // 	return $html;
 // }
+
+add_filter('the_content', 'add_ricks');
+
+function add_ricks($content){
+
+	if ( ! is_page('RickWorld') ) return $content;
+
+	$html = get_Ricks();
+	return $content.$html;
+}
+
+// Función que se encarga de recuperar los datos de la API externa
+function get_ricks(){
+
+    /*resetear variables*/
+    $id=1;
+    $str = '';
+    $bloque = '';
+
+    $template = '<div class="wpb_column vc_column_container vc_col-sm-8 vc_col-lg-offset-1 vc_col-lg-10 vc_col-md-offset-1 vc_col-md-10 vc_col-sm-offset-2 vc_col-xs-12">
+                    <div class="coleccion">
+                    {data}
+                    </div>
+                </div>';
+
+
+    while ($id <= 6) {
+
+        $urlRicks = "https://rickandmortyapi.com/api/character/?page={$id}&name=rick";
+
+        $responseRick = wp_remote_get($urlRicks);
+
+        //Si falla retorna un error
+        if (is_wp_error($responseRick)) {
+            error_log("Error: ". $responseRick->get_error_message());
+            return false;
+        }
+
+	$body = wp_remote_retrieve_body($responseRick);
+
+	$data = json_decode($body);
+
+
+	 if ( $data ){
+
+        $controlador=0;
+
+        	foreach ($data as $allRick) {
+        
+                if ($controlador == 1 ){
+        
+                    foreach($allRick as $InfoRick){
+                        $str .= '<div class="RickCard">';
+                        $str .= "<img src='{$InfoRick->image}'>";
+                        $str .= "<p class='Cardname'>{$InfoRick->name}</p>";
+                        $str .= "<p class='Speciename'>Especie: {$InfoRick->species}</p>";
+                        $str .= "<p class='Status'>Estado : {$InfoRick->status}</p>";
+                        $str .= "</div>";
+                        }
+                     }else{
+                         $controlador=1;
+                     }
+        
+                }
+	 }
+
+    $id=$id +1;
+    }
+    
+	$html = str_replace('{data}', $str, $template);
+
+	return $html;
+}
