@@ -479,3 +479,12 @@ function get_ricks(){
 
 	return $html;
 }
+
+
+// add_filter( 'gettext_dynamic_sidebar_after', 'modificar_texto_copyright' );
+
+// function modificar_texto_copyright() {
+
+//         return __( 'Copyright Lackern Dark Proyect 2022', 'gettext_dynamic_sidebar_after' );
+
+// }

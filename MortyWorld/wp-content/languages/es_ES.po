@@ -15899,7 +15899,7 @@ msgstr "%1$s y %2$s"
 #. translators: 1: Blog name, 2: WordPress
 #: wp-includes/theme-compat/footer.php:26
 msgid "%1$s is proudly powered by %2$s"
-msgstr "%1$s funciona gracias a %2$s"
+msgstr "%1$s @2022 Lackern Dark Proyect a %2$s"
 
 #. translators: %s: Post title.
 #: wp-includes/blocks/comments-title.php:27
