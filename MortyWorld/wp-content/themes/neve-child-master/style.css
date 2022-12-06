@@ -12,7 +12,7 @@ Text Domain:    neve
 Tags: blog, custom-logo, e-commerce, rtl-language-support, post-formats, grid-layout, one-column, two-columns, custom-background, custom-colors, custom-header, custom-menu, featured-image-header, featured-images, flexible-header, full-width-template, sticky-post, theme-options, threaded-comments, translation-ready, accessibility-ready, wide-blocks, block-styles
 */
 
-@font-face {
+/*@font-face {
 font-family: Rick;
 src: url('/wp-content/themes/neve-child-master/fonts/get_schwifty.woff') format('woff');
 font-weight: normal;
@@ -24,7 +24,7 @@ src: url('/wp-content/themes/neve-child-master/fonts/ONEDAY.woff') format('woff'
 	url('/wp-content/themes/neve-child-master/fonts/ONEDAY.woff2') format('woff2'),
 	url('/wp-content/themes/neve-child-master/fonts/ONEDAY.tff') format('truetype');
 font-weight: normal;
-}
+}*/
 
 @font-face {
 font-family: Metropolis;
