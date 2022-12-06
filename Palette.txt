@@ -1,0 +1,42 @@
+/* CSS HEX */
+--tacha: #d6c674;
+--jungle-green: #2eb762;
+--violet: #1a082d;
+--astronaut: #2f417c;
+--moccaccino: #741e18;
+--green-pea: #1d6938;
+--san-marino: #4b59a0;
+--loulou: #440d32;
+--cadillac: #a44e5f;
+--jagger: #34125a;
+
+#45e7b2
+#95a4edeb;
+#7b2687b5;
+
+/* SCSS HEX */
+$tacha: #d6c674;
+$jungle-green: #2eb762;
+$violet: #1a082d;
+$astronaut: #2f417c;
+$moccaccino: #741e18;
+$green-pea: #1d6938;
+$san-marino: #4b59a0;
+$loulou: #440d32;
+$cadillac: #a44e5f;
+$jagger: #34125a;
+
+
+/* SCSS RGB */
+--tacha: rgba(214,198,116,1);
+--jungle-green: rgba(46,183,98,1);
+--violet: rgba(26,8,45,1);
+--astronaut: rgba(47,65,124,1);
+--moccaccino: rgba(116,30,24,1);
+--green-pea: rgba(29,105,56,1);
+--san-marino: rgba(75,89,160,1);
+--loulou: rgba(68,13,50,1);
+--cadillac: rgba(164,78,95,1);
+--jagger: rgba(52,18,90,1);
+
+
