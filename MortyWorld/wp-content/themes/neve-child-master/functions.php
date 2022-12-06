@@ -80,13 +80,22 @@ add_filter( 'neve_react_controls_localization', 'add_custom_fonts' );
 
 
 
+/*cargar <javascripts>*/
 
+
+wp_enqueue_script('menu-sticky', '/wp-content/themes/neve-child-master/libs/menu-sticky.js', array('jquery'), '', true);
+
+wp_enqueue_script('MostrarSpoilers', '/wp-content/themes/neve-child-master/libs/spoilers.js', array('jquery'), '', true);
+
+
+
+/*funciones */
 
 add_filter('the_content', 'add_personajes_C137');
 
 function add_personajes_C137($content){
 
-	if ( ! is_page('tienda') ) return $content;
+	if ( ! is_page('c-137') ) return $content;
 
 	$html = get_data_api();
 	return $content.$html;
@@ -107,23 +116,23 @@ function get_data_api(){
 	$body = wp_remote_retrieve_body($response);
 
 	$data = json_decode($body);
-
-	$template = '<div class="coleccion">
+    $cantidad=count($data);
+	$template = "<div class='coleccion'>
+                    <h2 class='habitantes'> Quantity importan people of C-137: {$cantidad}
 					{data}
-				</div>';
+				</div>";
 
 	 if ( $data ){
 	 	$str = '';
-         $cantidad=count($data);
-         print_r($data);
+
 		foreach ($data as $C_137) {
 			$str .= '<div class="ReusableCard">';
 			$str .= "<img src='{$C_137->image}'>";
 			$str .= "<p class='Cardname'>{$C_137->name}</p>";
             $str .= "<p class='Speciename'>Especie: {$C_137->species}</p>";
-            $str .= "<p class='Cardname'>{$cantidad}</p>";
+            $str .= "<p class='Status'>{$C_137->status}</p>";
 			$str .= "</div>";
-            
+         
             
 		}
 	 }
@@ -190,13 +199,13 @@ function get_episodes_api(){
 
 	 if ( $T1Json ){
 	 	$str = '';
-        $str .= '<h2> Primera Temporada </h2>';
+        $str .= '<h2 class="ancla-T1"> Primera Temporada </h2>';
 		foreach ( $T1Json as $episode) {
 			$str .= '<div class="Temporada">';
 			$str .= "<p class='id'>{$episode->id}</p>";
             $str .= "<p class='name'>{$episode->name}</p>";
             $str .= "<p class='salida'>{$episode->air_date}</p>";
-            /* A lo mejor agrgo algo mas aqui
+            /* A lo mejor agrego algo mas aqui
             $str .= "<p class='id'>{$episode->id}</p>";
             */
 			$str .= "</div>";
@@ -205,13 +214,13 @@ function get_episodes_api(){
 	 }
      
      if ( $T2Json ){           
-        $str .= '<h2> Segunda Temporada </h2>';
+        $str .= '<h2 class="ancla-T2"> Segunda Temporada </h2>';
        foreach ( $T2Json as $episode) {
            $str .= '<div class="Temporada">';
            $str .= "<p class='id'>{$episode->id}</p>";
            $str .= "<p class='name'>{$episode->name}</p>";
            $str .= "<p class='salida'>{$episode->air_date}</p>";
-           /* A lo mejor agrgo algo mas aqui
+           /* A lo mejor agrego algo mas aqui
            $str .= "<p class='id'>{$episode->id}</p>";
            */
            $str .= "</div>";
@@ -219,13 +228,13 @@ function get_episodes_api(){
        }
     }
     if ( $T3Json ){
-        $str .= '<h2> Tercera Temporada </h2>';
+        $str .= '<h2 class="ancla-T3"> Tercera Temporada </h2>';
        foreach ( $T3Json as $episode) {
            $str .= '<div class="Temporada">';
            $str .= "<p class='id'>{$episode->id}</p>";
            $str .= "<p class='name'>{$episode->name}</p>";
            $str .= "<p class='salida'>{$episode->air_date}</p>";
-           /* A lo mejor agrgo algo mas aqui
+           /* A lo mejor agrego algo mas aqui
            $str .= "<p class='id'>{$episode->id}</p>";
            */
            $str .= "</div>";
@@ -233,13 +242,13 @@ function get_episodes_api(){
        }
     }
     if ( $T4Json ){
-        $str .= '<h2> Cuarta Temporada </h2>';
+        $str .= '<h2 class="ancla-T4"> Cuarta Temporada </h2>';
        foreach ($T4Json as $episode) {
            $str .= '<div class="Temporada">';
            $str .= "<p class='id'>{$episode->id}</p>";
            $str .= "<p class='name'>{$episode->name}</p>";
            $str .= "<p class='salida'>{$episode->air_date}</p>";
-           /* A lo mejor agrgo algo mas aqui
+           /* A lo mejor agrego algo mas aqui
            $str .= "<p class='id'>{$episode->id}</p>";
            */
            $str .= "</div>";
@@ -247,13 +256,13 @@ function get_episodes_api(){
        }
     }
     if ( $T5Json ){           
-        $str .= '<h2> Quinta Temporada </h2>';
+        $str .= '<h2 class="ancla-T5"> Quinta Temporada </h2>';
        foreach ( $T5Json as $episode) {
            $str .= '<div class="Temporada">';
            $str .= "<p class='id'>{$episode->id}</p>";
            $str .= "<p class='name'>{$episode->name}</p>";
            $str .= "<p class='salida'>{$episode->air_date}</p>";
-           /* A lo mejor agrgo algo mas aqui
+           /* A lo mejor agrego algo mas aqui
            $str .= "<p class='id'>{$episode->id}</p>";
            */
            $str .= "</div>";
