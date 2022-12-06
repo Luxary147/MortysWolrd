@@ -19,6 +19,12 @@ add_action( 'wp_enqueue_scripts', 'neve_child_load_css', 20 );
 **   Fuentes personalizadas
 */
 
+add_action( 'wp_print_styles', function() {
+    add_filter( 'neve_load_remote_fonts_locally', '__return_true' );
+} );
+
+
+
 function add_custom_font() { 
 	?>
 	<style type="text/css">
@@ -62,6 +68,28 @@ function add_custom_font() {
     font-display: swap;
 }
 
+@font-face {
+font-family: 'Rick';
+src: url('/wp-content/themes/neve-child-master/fonts/get_schwifty.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+font-family: 'Oneday';
+src: url('/wp-content/themes/neve-child-master/fonts/ONEDAY.woff') format('woff'),
+	url('/wp-content/themes/neve-child-master/fonts/ONEDAY.woff2') format('woff2'),
+	url('/wp-content/themes/neve-child-master/fonts/ONEDAY.tff') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+font-family: 'Metropolis';
+src: url('/wp-content/themes/neve-child-master/fonts/Metropolis.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+}
 
 	</style>
 	<?php
@@ -129,7 +157,7 @@ function get_data_api(){
 			$str .= '<div class="ReusableCard">';
 			$str .= "<img src='{$C_137->image}'>";
 			$str .= "<p class='Cardname'>{$C_137->name}</p>";
-            $str .= "<p class='Speciename'>Especie: {$C_137->species}</p>";
+            $str .= "<p class='Speciename'Specie: {$C_137->species}</p>";
             $str .= "<p class='Status'>{$C_137->status}</p>";
 			$str .= "</div>";
          
@@ -192,82 +220,106 @@ function get_episodes_api(){
     $T4Json = json_decode($T4String);
     $T5Json = json_decode($T5String);
 
-	$template = '<div class="Episodio">
+	$template = '<div class="Temporadas">
 					{data}
 				</div>';
 
 
 	 if ( $T1Json ){
 	 	$str = '';
-        $str .= '<h2 class="ancla-T1"> Primera Temporada </h2>';
+        $str .= '<h2 id="ancla-T1"> First Season </h2>';
+        $str .= '<div class="Episodios">';
+
 		foreach ( $T1Json as $episode) {
-			$str .= '<div class="Temporada">';
-			$str .= "<p class='id'>{$episode->id}</p>";
-            $str .= "<p class='name'>{$episode->name}</p>";
-            $str .= "<p class='salida'>{$episode->air_date}</p>";
+			$str .= '<div class="Episodio">';
+			$str .= "<p class='id'> Chapter {$episode->id}</p>";
+            $str .= "<p class='name'> <u>Name</u>: {$episode->name}</p>";
+            $str .= "<p class='salida'> <u>Premiere</u>: {$episode->air_date}</p>";
             /* A lo mejor agrego algo mas aqui
             $str .= "<p class='id'>{$episode->id}</p>";
             */
 			$str .= "</div>";
             
 		}
+        $str .= "</div>";
+        $str .= '<p id="ancla-T2"></p>';
 	 }
      
      if ( $T2Json ){           
-        $str .= '<h2 class="ancla-T2"> Segunda Temporada </h2>';
+        $str .= '<h2> Second Season </h2>';
+        $str .= '<div class="Episodios">';
        foreach ( $T2Json as $episode) {
-           $str .= '<div class="Temporada">';
-           $str .= "<p class='id'>{$episode->id}</p>";
-           $str .= "<p class='name'>{$episode->name}</p>";
-           $str .= "<p class='salida'>{$episode->air_date}</p>";
+        
+           $str .= '<div class="Episodio">';
+           $str .= "<p class='id'> Chapter {$episode->id}</p>";
+           $str .= "<p class='name'> <u>Name</u>: {$episode->name}</p>";
+           $str .= "<p class='salida'> <u>Premiere</u>: {$episode->air_date}</p>";
            /* A lo mejor agrego algo mas aqui
            $str .= "<p class='id'>{$episode->id}</p>";
            */
            $str .= "</div>";
            
+           
        }
+       $str .= "</div>";
+       $str .= '<p id="ancla-T3"></p>';
     }
     if ( $T3Json ){
-        $str .= '<h2 class="ancla-T3"> Tercera Temporada </h2>';
+        $str .= '<h2 > Third Season </h2>';
+        $str .= '<div class="Episodios">';
+
        foreach ( $T3Json as $episode) {
-           $str .= '<div class="Temporada">';
-           $str .= "<p class='id'>{$episode->id}</p>";
-           $str .= "<p class='name'>{$episode->name}</p>";
-           $str .= "<p class='salida'>{$episode->air_date}</p>";
+           $str .= '<div class="Episodio">';
+           $str .= "<p class='id'> Chapter {$episode->id}</p>";
+           $str .= "<p class='name'> <u>Name</u>: {$episode->name}</p>";
+           $str .= "<p class='salida'>  <u>Premiere</u>: {$episode->air_date}</p>";
            /* A lo mejor agrego algo mas aqui
            $str .= "<p class='id'>{$episode->id}</p>";
            */
            $str .= "</div>";
            
+           
        }
+       $str .= "</div>";
+       $str .= '<p id="ancla-T4"></p>';
     }
     if ( $T4Json ){
-        $str .= '<h2 class="ancla-T4"> Cuarta Temporada </h2>';
+        $str .= '<h2> Fourth Season </h2>';
+        $str .= '<div class="Episodios">';
+
        foreach ($T4Json as $episode) {
-           $str .= '<div class="Temporada">';
-           $str .= "<p class='id'>{$episode->id}</p>";
-           $str .= "<p class='name'>{$episode->name}</p>";
-           $str .= "<p class='salida'>{$episode->air_date}</p>";
+           $str .= '<div class="Episodio">';
+           $str .= "<p class='id'> Chapter {$episode->id}</p>";
+           $str .= "<p class='name'> <u>Name</u>: {$episode->name}</p>";
+           $str .= "<p class='salida'> <u>Premiere</u>: {$episode->air_date}</p>";
            /* A lo mejor agrego algo mas aqui
            $str .= "<p class='id'>{$episode->id}</p>";
            */
            $str .= "</div>";
            
+           
        }
+       $str .= "</div>";
+       $str .= '<p id="ancla-T5"></p>';
+       
     }
     if ( $T5Json ){           
-        $str .= '<h2 class="ancla-T5"> Quinta Temporada </h2>';
+        $str .= '<h2> Fifth Season </h2>';
+        $str .= '<div class="Episodios">';
+
        foreach ( $T5Json as $episode) {
-           $str .= '<div class="Temporada">';
-           $str .= "<p class='id'>{$episode->id}</p>";
-           $str .= "<p class='name'>{$episode->name}</p>";
-           $str .= "<p class='salida'>{$episode->air_date}</p>";
+           $str .= '<div class="Episodio">';
+           $str .= "<p class='id'> Chapter {$episode->id}</p>";
+           $str .= "<p class='name'> <u>Name</u>: {$episode->name}</p>";
+           $str .= "<p class='salida'> <u>Premiere</u>: {$episode->air_date}</p>";
            /* A lo mejor agrego algo mas aqui
            $str .= "<p class='id'>{$episode->id}</p>";
            */
            $str .= "</div>";
            
+           
        }
+       $str .= "</div>";
     }
 
 
@@ -333,8 +385,8 @@ function get_Mortys(){
                         $str .= '<div class="MortyCard">';
                         $str .= "<img src='{$InfoMorty->image}'>";
                         $str .= "<p class='Cardname'>{$InfoMorty->name}</p>";
-                        $str .= "<p class='Speciename'>Especie: {$InfoMorty->species}</p>";
-                        $str .= "<p class='Status'>Estado : {$InfoMorty->status}</p>";
+                        $str .= "<p class='Speciename'>Specie: {$InfoMorty->species}</p>";
+                        $str .= "<p class='Status'>Status : {$InfoMorty->status}</p>";
                         $str .= "</div>";
                         }
                      }else{
@@ -468,12 +520,13 @@ function get_ricks(){
         
                     foreach($allRick as $InfoRick){
                         $str .= '<div class="RickCard">';
-                        $str .= "<img src='{$InfoRick->image}'>";
+                        $str .= "<img src={$InfoRick->image} alt='img error'>";
                         $str .= "<p class='Cardname'>{$InfoRick->name}</p>";
-                        $str .= "<p class='Speciename'>Especie: {$InfoRick->species}</p>";
-                        $str .= "<p class='Status'>Estado : {$InfoRick->status}</p>";
+                        $str .= "<p class='Speciename'>Specie: {$InfoRick->species}</p>";
+                        $str .= "<p class='Status'>Status : {$InfoRick->status}</p>";
                         $str .= "</div>";
                         }
+
                      }else{
                          $controlador=1;
                      }
